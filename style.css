@@ -1,0 +1,300 @@
+
+/* ===== 1. Configurações gerais ===== */
+
+:root {
+    --bg: #0b0f0d;
+    --surface: #121815;
+    --surface-hover: #19221c;
+    --border: #26352b;
+    --green: #65f58b;
+    --text: #e5eee7;
+    --muted: #8b9b8f;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* ===== 2. Cabeçalho ===== */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.topbar h1 {
+    color: var(--green);
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+}
+
+.status {
+    color: var(--green);
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+/* ===== 3. Estrutura principal ===== */
+
+.layout {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    min-height: calc(100vh - 70px);
+}
+
+/* ===== 4. Menu lateral ===== */
+
+.sidebar {
+    padding: 24px 16px;
+    border-right: 1px solid var(--border);
+}
+
+.sidebar h2 {
+    margin-bottom: 16px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+}
+
+.sidebar a {
+    display: block;
+    margin-bottom: 6px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a:focus-visible {
+    background: var(--surface-hover);
+    color: var(--green);
+    outline: none;
+}
+
+/* ===== 5. Conteúdo ===== */
+
+.content {
+    min-width: 0;
+    padding: 32px;
+}
+
+.welcome {
+    margin-bottom: 28px;
+}
+
+.welcome h2 {
+    margin-bottom: 6px;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.welcome p,
+.panel p {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* ===== 6. Cartões ===== */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.panel {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.panel:hover {
+    border-color: var(--green);
+    background: var(--surface-hover);
+}
+
+.panel h3 {
+    margin-bottom: 12px;
+    color: var(--green);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+/* ===== 7. Adaptação para telas menores ===== */
+
+@media (max-width: 800px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar h2 {
+        width: 100%;
+        margin-bottom: 2px;
+    }
+
+    .sidebar a {
+        margin: 0;
+        padding: 8px 10px;
+    }
+
+    .content {
+        padding: 24px 16px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 420px) {
+    .topbar {
+        padding: 16px;
+    }
+
+    .topbar h1 {
+        font-size: 1rem;
+    }
+
+    .status {
+        font-size: 0.6rem;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+}
+
+/* ===== Relógio ===== */
+
+.clock-widget {
+    margin-top: 24px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+}
+
+#clock {
+    display: block;
+    color: var(--green);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+}
+
+#current-date {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-transform: capitalize;
+}
+
+/* ===== Sistema de tarefas ===== */
+
+#task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+#task-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text);
+}
+
+#task-form button,
+#task-list button {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-hover);
+    color: var(--green);
+    cursor: pointer;
+}
+
+#task-progress {
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+#task-list {
+    display: grid;
+    gap: 8px;
+    padding: 0;
+    list-style: none;
+}
+
+#task-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+#task-list li span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#task-list input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: var(--green);
+}
+
+#task-list li.completed span {
+    color: var(--muted);
+    text-decoration: line-through;
+}
+
+#task-list button {
+    flex-shrink: 0;
+    color: #ff8b8b;
+}

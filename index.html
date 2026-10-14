@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ronin Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <h1>RONIN HUB</h1>
+        <span class="status">SISTEMA ONLINE</span>
+    </header>
+
+    <div class="layout">
+
+        <nav class="sidebar">
+            <h2>MENU</h2>
+
+            <a href="#inicio">Início</a>
+            <a href="#projetos">Projetos</a>
+            <a href="#tarefas">Tarefas</a>
+            <a href="#notas">Notas</a>
+        </nav>
+
+        <main id="inicio" class="content">
+
+        
+<section class="welcome">
+    <h2>Central de Operações</h2>
+    <p>Seu espaço de desenvolvimento.</p>
+
+    <div class="clock-widget">
+        <time id="clock">00:00:00</time>
+        <p id="current-date">Carregando data...</p>
+    </div>
+</section>
+
+
+           
+<section class="dashboard">
+
+    <article class="panel" id="projetos">
+        <h3>PROJETOS</h3>
+        <p id="project-count">0 projetos ativos</p>
+    </article>
+
+    <article class="panel" id="tarefas">
+        <h3>TAREFAS</h3>
+
+        <form id="task-form">
+    <input
+        id="task-input"
+        type="text"
+        placeholder="Nova tarefa..."
+        maxlength="100"
+        required
+    >
+    <button type="submit">Adicionar</button>
+</form>
+
+<p id="task-progress">0 de 0 concluídas</p>
+
+<ul id="task-list"></ul>
+    </article>
+
+    <article class="panel" id="notas">
+        <h3>NOTAS</h3>
+
+        <textarea
+            id="notes-input"
+            placeholder="Suas ideias..."
+            rows="4"
+        ></textarea>
+
+        <p id="notes-status">Notas salvas neste dispositivo.</p>
+    </article>
+
+</section>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

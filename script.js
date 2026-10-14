@@ -1,63 +1,79 @@
 
+const clock = document.querySelector("#clock");
+const currentDate = document.querySelector("#current-date");
+
 const taskForm = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
 const taskProgress = document.querySelector("#task-progress");
+const notesInput = document.querySelector("#notes-input");
 
-let tasks;
+// RELÓGIO E DATA
+function updateClock() {
+    const now = new Date();
+
+    if (clock) {
+        clock.textContent = now.toLocaleTimeString("pt-BR", {
+            hour12: false
+        });
+    }
+
+    if (currentDate) {
+        currentDate.textContent = now.toLocaleDateString("pt-BR", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+    }
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+// TAREFAS
+let tasks = [];
 
 try {
-    tasks = JSON.parse(
+    const savedTasks = JSON.parse(
         localStorage.getItem("ronin-tasks") || "[]"
     );
 
-    if (
-        !Array.isArray(tasks) ||
-        !tasks.every(task =>
-            typeof task === "object" &&
-            task !== null &&
+    if (Array.isArray(savedTasks)) {
+        tasks = savedTasks.filter(task =>
+            task &&
             typeof task.text === "string" &&
             typeof task.completed === "boolean"
-        )
-    ) {
-        tasks = [];
+        );
     }
-} catch {
+} catch (error) {
     tasks = [];
 }
 
 function saveTasks() {
-    localStorage.setItem(
-        "ronin-tasks",
-        JSON.stringify(tasks)
-    );
+    localStorage.setItem("ronin-tasks", JSON.stringify(tasks));
 }
 
 function renderTasks() {
-    taskList.replaceChildren();
+    if (!taskList) return;
 
-    let completedCount = 0;
+    taskList.replaceChildren();
 
     tasks.forEach((task, index) => {
         const item = document.createElement("li");
         const checkbox = document.createElement("input");
         const text = document.createElement("span");
-        const removeButton = document.createElement("button");
+        const deleteButton = document.createElement("button");
 
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
-        checkbox.setAttribute(
-            "aria-label",
-            "Concluir: " + task.text
-        );
-
-        item.classList.toggle("completed", task.completed);
-
-        if (task.completed) {
-            completedCount++;
-        }
 
         text.textContent = task.text;
+
+        if (task.completed) {
+            text.style.textDecoration = "line-through";
+            text.style.opacity = "0.6";
+        }
 
         checkbox.addEventListener("change", () => {
             tasks[index].completed = checkbox.checked;
@@ -65,40 +81,61 @@ function renderTasks() {
             renderTasks();
         });
 
-        removeButton.textContent = "Excluir";
-        removeButton.type = "button";
+        deleteButton.type = "button";
+        deleteButton.textContent = "Excluir";
 
-        removeButton.addEventListener("click", () => {
+        deleteButton.addEventListener("click", () => {
             tasks.splice(index, 1);
             saveTasks();
             renderTasks();
         });
 
-        item.append(checkbox, text, removeButton);
+        item.append(checkbox, text, deleteButton);
         taskList.appendChild(item);
     });
 
-    taskProgress.textContent =
-        `${completedCount} de ${tasks.length} concluídas`;
+    if (taskProgress) {
+        const completed = tasks.filter(task => task.completed).length;
+        taskProgress.textContent =
+            `${completed} de ${tasks.length} concluídas`;
+    }
 }
 
-taskForm.addEventListener("submit", event => {
-    event.preventDefault();
+if (taskForm && taskInput) {
+    taskForm.addEventListener("submit", event => {
+        event.preventDefault();
 
-    const text = taskInput.value.trim();
+        const text = taskInput.value.trim();
 
-    if (!text) return;
+        if (!text) return;
 
-    tasks.push({
-        text: text,
-        completed: false
+        tasks.push({
+            text: text,
+            completed: false
+        });
+
+        saveTasks();
+        renderTasks();
+        taskInput.value = "";
+        taskInput.focus();
     });
-
-    saveTasks();
-    renderTasks();
-
-    taskInput.value = "";
-    taskInput.focus();
-});
+}
 
 renderTasks();
+
+// NOTAS
+if (notesInput) {
+    try {
+        notesInput.value = localStorage.getItem("ronin-notes") || "";
+    } catch (error) {
+        notesInput.value = "";
+    }
+
+    notesInput.addEventListener("input", () => {
+        try {
+            localStorage.setItem("ronin-notes", notesInput.value);
+        } catch (error) {
+            console.error("Não foi possível salvar as notas:", error);
+        }
+    });
+}

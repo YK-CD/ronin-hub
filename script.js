@@ -139,3 +139,38 @@ if (notesInput) {
         }
     });
 }
+
+ // NAVEGAÇÃO ENTRE TELAS
+const navLinks = document.querySelectorAll(".nav-link");
+const pages = document.querySelectorAll(".page");
+
+function showPage(pageName) {
+    pages.forEach(page => {
+        const isActive = page.id === `page-${pageName}`;
+
+        page.style.display = isActive ? "" : "none";
+        page.classList.toggle("active", isActive);
+    });
+
+    navLinks.forEach(link => {
+        const isActive = link.dataset.page === pageName;
+
+        link.classList.toggle("active", isActive);
+
+        if (isActive) {
+            link.setAttribute("aria-current", "page");
+        } else {
+            link.removeAttribute("aria-current");
+        }
+    });
+}
+
+navLinks.forEach(link => {
+    link.addEventListener("click", event => {
+        event.preventDefault();
+        showPage(link.dataset.page);
+    });
+});
+
+// Abre a tela inicial ao carregar o site.
+showPage("inicio");

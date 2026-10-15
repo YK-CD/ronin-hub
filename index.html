@@ -4,39 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="theme-color" content="#080909">
     <title>Ronin Hub</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header class="topbar">
         <h1>RONIN HUB</h1>
         <span class="status">SISTEMA ONLINE</span>
     </header>
 
     <div class="layout">
-
         <nav class="sidebar-nav">
-            <a href="#inicio" class="nav-link active"
-               data-page="inicio">Início</a>
-
-            <a href="#projetos" class="nav-link"
-               data-page="projetos">Projetos</a>
-
-            <a href="#tarefas" class="nav-link"
-               data-page="tarefas">Tarefas</a>
-
-            <a href="#notas" class="nav-link"
-               data-page="notas">Notas</a>
+            <a href="#inicio" class="nav-link active" data-page="inicio">Início</a>
+            <a href="#projetos" class="nav-link" data-page="projetos">Projetos</a>
+            <a href="#tarefas" class="nav-link" data-page="tarefas">Tarefas</a>
+            <a href="#notas" class="nav-link" data-page="notas">Notas</a>
         </nav>
 
         <main class="content">
 
-            <!-- TELA INÍCIO -->
+            <!-- INÍCIO -->
             <section class="page active" id="page-inicio">
                 <section class="welcome">
+                    <p class="eyebrow">/ 01 — DASHBOARD</p>
                     <h2>Central de Operações</h2>
                     <p>Seu espaço de desenvolvimento.</p>
 
@@ -45,25 +36,84 @@
                         <p id="current-date">Carregando data...</p>
                     </div>
                 </section>
+
+                <section class="panel weather-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">/ LIVE DATA</p>
+                            <h3>CLIMA LOCAL</h3>
+                        </div>
+                        <span id="weather-status">AGUARDANDO</span>
+                    </div>
+
+                    <form id="weather-form" class="weather-form">
+                        <input
+                            id="weather-city"
+                            type="text"
+                            placeholder="Digite uma cidade..."
+                            value="Goiana"
+                            maxlength="80"
+                            required
+                        >
+                        <button type="submit">Consultar</button>
+                    </form>
+
+                    <div id="weather-result" aria-live="polite">
+                        <p>Pesquise uma cidade para consultar o clima.</p>
+                    </div>
+
+                    <p class="weather-credit">
+                        Dados meteorológicos: 
+                        <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>
+                    </p>
+                </section>
             </section>
 
-            <!-- TELA PROJETOS -->
+            <!-- PROJETOS -->
             <section class="page" id="page-projetos">
                 <section class="welcome">
+                    <p class="eyebrow">/ 02 — WORKSPACE</p>
                     <h2>Projetos</h2>
-                    <p>Seus projetos e iniciativas.</p>
+                    <p>Gerencie suas iniciativas e acompanhe o progresso.</p>
                 </section>
 
                 <article class="panel">
-                    <h3>PROJETOS ATIVOS</h3>
-                    <p id="project-count">0 projetos ativos</p>
-                    <p>Em breve: cadastro e acompanhamento de projetos.</p>
+                    <h3>NOVO PROJETO</h3>
+
+                    <form id="project-form" class="project-form">
+                        <label for="project-name">Nome do projeto</label>
+                        <input id="project-name" type="text"
+                            placeholder="Ex.: Ronin Hub" maxlength="80" required>
+
+                        <label for="project-description">Descrição</label>
+                        <textarea id="project-description"
+                            placeholder="Qual é o objetivo?" rows="3" maxlength="300"></textarea>
+
+                        <label for="project-url">Link (opcional)</label>
+                        <input id="project-url" type="url"
+                            placeholder="https://..." maxlength="500">
+
+                        <label for="project-status">Estado</label>
+                        <select id="project-status">
+                            <option value="planejamento">Planejamento</option>
+                            <option value="andamento">Em andamento</option>
+                            <option value="concluido">Concluído</option>
+                        </select>
+
+                        <button type="submit">+ Criar projeto</button>
+                    </form>
                 </article>
+
+                <section class="projects-summary">
+                    <p id="project-count">0 projetos cadastrados</p>
+                    <div id="project-list" class="project-list"></div>
+                </section>
             </section>
 
-            <!-- TELA TAREFAS -->
+            <!-- TAREFAS -->
             <section class="page" id="page-tarefas">
                 <section class="welcome">
+                    <p class="eyebrow">/ 03 — TASK MANAGER</p>
                     <h2>Tarefas</h2>
                     <p>Organize suas atividades.</p>
                 </section>
@@ -72,14 +122,8 @@
                     <h3>MINHAS TAREFAS</h3>
 
                     <form id="task-form">
-                        <input
-                            id="task-input"
-                            type="text"
-                            placeholder="Nova tarefa..."
-                            maxlength="100"
-                            required
-                        >
-
+                        <input id="task-input" type="text"
+                            placeholder="Nova tarefa..." maxlength="100" required>
                         <button type="submit">Adicionar</button>
                     </form>
 
@@ -88,28 +132,21 @@
                 </article>
             </section>
 
-            <!-- TELA NOTAS -->
+            <!-- NOTAS -->
             <section class="page" id="page-notas">
                 <section class="welcome">
+                    <p class="eyebrow">/ 04 — MEMORY BANK</p>
                     <h2>Notas</h2>
-                    <p>Registre suas ideias e informações.</p>
+                    <p>Registre ideias e informações.</p>
                 </section>
 
                 <article class="panel">
                     <h3>MEU BLOCO DE NOTAS</h3>
-
-                    <textarea
-                        id="notes-input"
-                        placeholder="Suas ideias..."
-                        rows="8"
-                    ></textarea>
-
-                    <p id="notes-status">
-                        Notas salvas neste dispositivo.
-                    </p>
+                    <textarea id="notes-input"
+                        placeholder="Suas ideias..." rows="10"></textarea>
+                    <p id="notes-status">Notas salvas neste dispositivo.</p>
                 </article>
             </section>
-
         </main>
     </div>
 

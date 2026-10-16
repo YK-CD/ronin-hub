@@ -1,4 +1,391 @@
 
+/* =========================================
+   RONIN HUB — DARK CYBER BRUTALISM
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    color-scheme: dark;
+
+    --bg: #080909;
+    --surface: #111313;
+    --surface-alt: #191c1c;
+    --surface-raised: #202323;
+
+    --text: #f0f0ed;
+    --muted: #929893;
+    --border: #363b38;
+    --black: #050606;
+
+    --purple: #a16aff;
+    --lime: #caff38;
+    --danger: #ff525b;
+
+    --font-main: 'Space Grotesk', Arial, sans-serif;
+    --font-code: 'IBM Plex Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+a,
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
+/* BARRA SUPERIOR */
+
+.topbar {
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 30px;
+    background: var(--surface);
+    border-bottom: 2px solid var(--text);
+}
+
+.topbar h1 {
+    margin: 0;
+    font-family: var(--font-code);
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+}
+
+.topbar h1::before {
+    content: "✳ ";
+    color: var(--purple);
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-code);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--lime);
+}
+
+.status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--lime);
+    box-shadow: 0 0 9px #caff3866;
+}
+
+/* LAYOUT */
+
+.layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    min-height: calc(100vh - 76px);
+}
+
+/* BARRA LATERAL */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 26px 16px;
+    background: #0b0c0c;
+    border-right: 2px solid var(--border);
+}
+
+.sidebar-nav::before {
+    content: "// NAVIGATION";
+    margin: 0 10px 16px;
+    color: var(--muted);
+    font-family: var(--font-code);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px;
+    border: 1px solid transparent;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: var(--font-code);
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 150ms ease, color 150ms ease;
+}
+
+.nav-link::before {
+    content: "+";
+    margin-right: 12px;
+    color: var(--purple);
+    font-size: 17px;
+}
+
+.nav-link:hover {
+    background: var(--surface-alt);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+.nav-link.active {
+    background: var(--surface-raised);
+    border-color: var(--purple);
+    color: var(--text);
+    box-shadow: 4px 4px 0 var(--purple);
+}
+
+.nav-link.active::before {
+    content: ">";
+    color: var(--lime);
+}
+
+/* CONTEÚDO */
+
+.content {
+    width: 100%;
+    min-width: 0;
+    padding: 32px;
+}
+
+/* TELAS */
+
+.page {
+    display: none;
+    width: 100%;
+    min-width: 0;
+    animation: enter-page 180ms ease-out;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes enter-page {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TÍTULOS */
+
+.welcome {
+    margin-bottom: 26px;
+}
+
+.welcome h2 {
+    margin: 0 0 8px;
+    font-size: clamp(27px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -1.8px;
+}
+
+.welcome h2::before {
+    content: "/ ";
+    color: var(--purple);
+}
+
+.welcome > p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* RELÓGIO */
+
+.clock-widget {
+    position: relative;
+    overflow: hidden;
+    margin-top: 26px;
+    padding: 28px;
+    background: #050606;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--lime);
+}
+
+.clock-widget::before {
+    content: "SYS.TIME // LOCAL NODE";
+    display: block;
+    margin-bottom: 14px;
+    color: var(--purple);
+    font-family: var(--font-code);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.clock-widget::after {
+    content: "+";
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: var(--lime);
+    font-family: var(--font-code);
+    font-size: 25px;
+}
+
+#clock {
+    display: block;
+    color: var(--lime);
+    font-family: var(--font-code);
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -2px;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 18px #caff3822;
+}
+
+#current-date {
+    margin: 12px 0 0;
+    color: #a8afaa;
+    font-family: var(--font-code);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+/* PAINÉIS */
+
+.panel {
+    min-width: 0;
+    margin-bottom: 22px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 5px 5px 0 #000000;
+}
+
+.panel h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 20px;
+    color: var(--text);
+    font-family: var(--font-code);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.panel h3::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--purple);
+}
+
+.panel p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* FORMULÁRIOS */
+
+#task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 14px;
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    color: var(--text);
+    outline: none;
+}
+
+#task-input {
+    flex: 1 1 180px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #737a75;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 3px 3px 0 var(--purple);
+}
+
+textarea {
+    display: block;
+    min-height: 180px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+button {
+    min-height: 44px;
+    padding: 11px 18px;
+    background: var(--lime);
+    border: 1px solid var(--lime);
+    border-radius: 0;
+    color: var(--black);
+    font-family: var(--font-code);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+button:hover {
+    box-shadow: 4px 4px 0 var(--purple);
+    transform: translate(-1px, -1px);
+}
+
+button:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+}
+
 /* =====================================
    RONIN HUB — CLIMA
    ===================================== */
@@ -261,7 +648,220 @@
     background: var(--surface);
     border: 1px dashed var(--border);
 }
+/* TAREFAS */
 
+#task-progress {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-code);
+    font-size: 11px;
+}
+
+#task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+#task-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 12px;
+    background: var(--black);
+    border: 1px solid var(--border);
+}
+
+#task-list input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--purple);
+    cursor: pointer;
+}
+
+#task-list span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: var(--text);
+    font-size: 13px;
+}
+
+#task-list button {
+    flex: 0 0 auto;
+    min-height: 34px;
+    padding: 7px 10px;
+    background: #242626;
+    border-color: var(--border);
+    color: var(--text);
+    font-size: 10px;
+}
+
+#task-list button:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #ffffff;
+    box-shadow: none;
+}
+
+/* NOTAS */
+
+#notes-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 0;
+    font-family: var(--font-code);
+    font-size: 11px;
+}
+
+#notes-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--lime);
+}
+
+/* ACESSIBILIDADE */
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 3px;
+}
+
+/* TABLETS */
+
+@media (max-width: 800px) {
+    .topbar {
+        min-height: 68px;
+        padding: 14px 20px;
+    }
+
+    .layout {
+        grid-template-columns: 165px minmax(0, 1fr);
+        min-height: calc(100vh - 68px);
+    }
+
+    .sidebar-nav {
+        padding: 22px 10px;
+    }
+
+    .content {
+        padding: 24px 18px;
+    }
+
+    .clock-widget {
+        padding: 22px;
+    }
+
+    .panel {
+        padding: 19px;
+        box-shadow: 4px 4px 0 #000000;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 520px) {
+    .topbar {
+        padding: 14px;
+    }
+
+    .topbar h1 {
+        font-size: 19px;
+    }
+
+    .status {
+        font-size: 9px;
+        letter-spacing: 0;
+    }
+
+    .layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        flex-direction: row;
+        gap: 5px;
+        overflow-x: auto;
+        padding: 10px;
+        border-right: 0;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .sidebar-nav::before {
+        display: none;
+    }
+
+    .nav-link {
+        flex: 0 0 auto;
+        min-height: 42px;
+        padding: 10px;
+        font-size: 10px;
+    }
+
+    .nav-link::before {
+        margin-right: 6px;
+    }
+
+    .nav-link.active {
+        box-shadow: 2px 2px 0 var(--purple);
+    }
+
+    .content {
+        padding: 22px 16px;
+    }
+
+    .welcome h2 {
+        font-size: 29px;
+        letter-spacing: -1px;
+    }
+
+    .clock-widget {
+        margin-top: 20px;
+        padding: 20px 16px;
+    }
+
+    #clock {
+        font-size: clamp(32px, 10vw, 48px);
+        letter-spacing: -1px;
+    }
+
+    #current-date {
+        font-size: 10px;
+    }
+
+    .panel {
+        padding: 17px;
+        box-shadow: 3px 3px 0 #000000;
+    }
+
+    #task-form {
+        flex-direction: column;
+    }
+
+    #task-form button {
+        width: 100%;
+    }
+
+    #task-list li {
+        flex-wrap: wrap;
+    }
+
+    #task-list span {
+        overflow-wrap: anywhere;
+    }
+}
 /* RESPONSIVIDADE */
 
 @media (max-width: 800px) {
@@ -293,5 +893,16 @@
 
     .project-card {
         padding: 16px;
+    }
+}
+/* REDUZIR ANIMAÇÕES */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }
